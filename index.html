@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathematics in the Modern World | Edwin Paler</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap');
+
+    :root {
+      --bg: #0a0a0b;
+      --card: #141416;
+      --primary: #22c55e;
+      --primary-glow: rgba(34, 197, 94, 0.35);
+      --accent: #eab308;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --border: #27272a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 var(--primary-glow); }
+      50% { box-shadow: 0 0 0 12px transparent; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 6px var(--primary)); }
+      50% { filter: drop-shadow(0 0 16px var(--primary)); }
+    }
+
+    /* Homepage */
+    .homepage {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      padding: 3.5rem 1.5rem 4.5rem;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(ellipse at 50% 0%, #14532d 0%, #0a0a0b 60%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(34,197,94,0.12) 0%, transparent 70%);
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      background: linear-gradient(90deg, #4ade80, #22c55e, #eab308);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    .hero .sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease-out 0.15s both;
+    }
+
+    .dev-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      padding: 0.5rem 1.3rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #4ade80;
+      animation: fadeUp 0.8s ease-out 0.3s both;
+    }
+
+    .grid-area {
+      max-width: 900px;
+      margin: -1.8rem auto 3rem;
+      padding: 0 1.2rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 560px) {
+      .topic-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 820px) {
+      .topic-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
+      .hero h1 { font-size: 2.5rem; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.4rem 1.25rem;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      animation: scaleIn 0.5s ease-out forwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.18s; }
+    .card:nth-child(3) { animation-delay: 0.26s; }
+    .card:nth-child(4) { animation-delay: 0.34s; }
+    .card:nth-child(5) { animation-delay: 0.42s; }
+    .card:nth-child(6) { animation-delay: 0.50s; }
+    .card:nth-child(7) { animation-delay: 0.58s; }
+    .card:nth-child(8) { animation-delay: 0.66s; }
+
+    .card:hover {
+      border-color: var(--primary);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(34, 197, 94, 0.2);
+      background: #1a1a1d;
+    }
+
+    .card .num {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.9rem;
+      transition: transform 0.3s;
+    }
+
+    .card:hover .num {
+      transform: rotate(-8deg) scale(1.1);
+    }
+
+    .card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Lesson pages */
+    .lesson {
+      display: none;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 1.5rem 1.2rem 4rem;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .lesson.active { display: block; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--primary);
+      padding: 0.55rem 1.1rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: all 0.25s;
+    }
+
+    .back-btn:hover {
+      background: #1a1a1d;
+      border-color: var(--primary);
+      transform: translateX(-4px);
+    }
+
+    .lesson-head {
+      margin-bottom: 1.8rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      animation: slideInLeft 0.5s ease;
+    }
+
+    .lesson-head h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .lesson-head .tag {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    h3 {
+      font-size: 1.12rem;
+      color: #4ade80;
+      margin: 1.5rem 0 0.55rem;
+      animation: fadeUp 0.4s ease;
+    }
+
+    h4 {
+      font-size: 1.02rem;
+      color: var(--accent);
+      margin: 1.1rem 0 0.4rem;
+    }
+
+    p { margin-bottom: 0.8rem; color: #d4d4d8; }
+
+    ul, ol { margin: 0.5rem 0 1rem 1.4rem; color: #d4d4d8; }
+    li { margin-bottom: 0.35rem; }
+
+    .box {
+      background: rgba(34, 197, 94, 0.08);
+      border-left: 3px solid var(--primary);
+      padding: 0.9rem 1.1rem;
+      margin: 0.9rem 0;
+      border-radius: 0 12px 12px 0;
+      transition: all 0.3s;
+      animation: fadeUp 0.4s ease;
+    }
+
+    .box:hover {
+      background: rgba(34, 197, 94, 0.14);
+      transform: translateX(4px);
+    }
+
+    .box strong { color: #4ade80; }
+
+    .note {
+      background: rgba(234, 179, 8, 0.1);
+      border-left: 3px solid var(--accent);
+      padding: 0.9rem 1.1rem;
+      margin: 0.9rem 0;
+      border-radius: 0 12px 12px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      animation: fadeUp 0.4s ease;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+    }
+
+    tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+    .math { font-family: 'Times New Roman', serif; font-size: 1.1em; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    footer .name {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Floating particles decoration */
+    .particle {
+      position: absolute;
+      width: 6px; height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: float 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOMEPAGE -->
+  <div class="homepage" id="home">
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Mathematics in the Modern World</h1>
+        <p class="sub">Midterm Lessons</p>
+        <div class="dev-badge">Developed by Edwin Paler</div>
+      </div>
+    </div>
+
+    <div class="grid-area">
+      <div class="topic-grid">
+        <div class="card" onclick="openLesson(1)">
+          <div class="num">1</div>
+          <h3>Language & Symbols</h3>
+          <p>Symbols and word meanings</p>
+        </div>
+        <div class="card" onclick="openLesson(2)">
+          <div class="num">2</div>
+          <h3>Expressions</h3>
+          <p>Words to math expressions</p>
+        </div>
+        <div class="card" onclick="openLesson(3)">
+          <div class="num">3</div>
+          <h3>Sets</h3>
+          <p>Definition & number sets</p>
+        </div>
+        <div class="card" onclick="openLesson(4)">
+          <div class="num">4</div>
+          <h3>Set-Builder</h3>
+          <p>Notation examples</p>
+        </div>
+        <div class="card" onclick="openLesson(5)">
+          <div class="num">5</div>
+          <h3>Types of Sets</h3>
+          <p>Empty, finite, subset...</p>
+        </div>
+        <div class="card" onclick="openLesson(6)">
+          <div class="num">6</div>
+          <h3>Operations</h3>
+          <p>Union & intersection</p>
+        </div>
+        <div class="card" onclick="openLesson(7)">
+          <div class="num">7</div>
+          <h3>Venn Diagram</h3>
+          <p>Visual set relations</p>
+        </div>
+        <div class="card" onclick="openLesson(8)">
+          <div class="num">8</div>
+          <h3>Reasoning</h3>
+          <p>Inductive & deductive</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Mathematics in the Modern World • Midterm Lessons</p>
+      <p class="name">Developed by Edwin Paler</p>
+    </footer>
+  </div>
+
+  <!-- LESSON 1 -->
+  <div class="lesson" id="lesson1">
+    <button class="back-btn" onclick="goHome()">← Back to Home</button>
+    <div class="lesson-head">
+      <h2>Mathematical Language & Symbols</h2>
+      <div class="tag">Topic 1</div>
+    </div>
+    <h3>Common Symbols</h3>
+    <table>
+      <thead><tr><th>Symbol</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="math">+ − ±</td><td>Plus, Minus, Plus-minus</td></tr>
+        <tr><td class="math">× ÷ ⋅</td><td>Multiply, Divide, Dot</td></tr>
+        <tr><td class="math">= ≠ &gt; &lt; ≥ ≤</td><td>Equal, Not equal, Comparisons</td></tr>
+        <tr><td class="math">x y z</td><td>Variables</td></tr>
+        <tr><td class="math">√ ∛</td><td>Square root, Cube root</td></tr>
+      </tbody>
+    </table>
+    <h3>Verbal Phrases</h3>
+    <h4>Addition</h4>
+    <ul><li>Sum</li><li>Plus / Added by</li><li>More than</li><li>Increased by</li></ul>
+    <h4>Subtraction</h4>
+    <ul><li>Minus</li><li>Decreased by</li><li>Less than</li><li>Difference</li></ul>
+    <h4>Multiplication</h4>
+    <ul><li>Times</li><li>Product of</li><li>Multiplied by</li></ul>
+    <h4>Division</h4>
+    <ul><li>Divided by</li><li>Quotient</li><li>Ratio</li></ul>
+  </div>
+
+  <!-- LESSON 2 -->
+  <div class="lesson" id="lesson2">
+    <button class="back-btn" onclick="goHome()">← Back to Home</button>
+    <div class="lesson-head">
+      <h2>Mathematical Expression</h2>
+      <div class="tag">Topic 2</div>
+    </div>
+    <h3>Translating Phrases</h3>
+    <div class="box"><strong>1.</strong> Sum of a number and 10 → <span class="math">x + 10</span></div>
+    <div class="box"><strong>2.</strong> Difference of a number and 5 → <span class="math">x − 5</span></div>
+    <div class="box"><strong>3.</strong> Product of 10 and a number → <span class="math">10x</span></div>
+    <div class="box"><strong>4.</strong> Quotient of a number and 50 → <span class="math">x / 50</span></div>
+    <div class="box"><strong>5.</strong> One-fifth of a number → <span class="math">(1/5)x</span></div>
+    <div class="box"><strong>6.</strong> Three-fourths of 500 → <span class="math">(3/4)×500</span></div>
+    <div class="box"><strong>7.</strong> Sum of two numbers less 11 → <span class="math">(x+y)−11</span></div>
+    <div class="box"><strong>8.</strong> Double sales less taxes → <span class="math">2x − y</span></div>
+    <div class="box"><strong>9.</strong> Difference of gross sales less taxes → <span class="math">x − y</span></div>
+    <div class="box"><strong>10.</strong> A number subtracted from 8 → <span class="math">8 − x</span></div>
+    <h3>Sample Problems</h3>
+    <div class="box">Sum = 45, difference = 11 → x = 17, y = 28</div>
+    <div class="box">Average of quizzes = 85, first is 10 higher → 80 and 90</div>
+    <div class="box">3x + 7 = 34 → x = 9</div>
+    <div class="box">Two grades total 180, one has 14 more → 83 and 97</div>
+  </div>
+
+  <!-- LESSON 3 -->
+  <div class="lesson" id="lesson3">
+    <button class="back-btn" onclick="goHome()">← Back to Home</button>
+    <div class="lesson-head">
+      <h2>Sets</h2>
+      <div class="tag">Topic 3</div>
+    </div>
+    <h3>Definition</h3>
+    <p>A set is a group or collection of objects. The objects are called <strong>elements</strong>.</p>
+    <div class="box">Letters in ALEX EALA → A = {A, E, L, X}</div>
+    <h3>Fundamental Number Sets</h3>
+    <div class="box"><strong>Natural Numbers</strong><br>ℕ = {1, 2, 3, 4, 5, …}</div>
+    <div class="box"><strong>Whole Numbers</strong><br>𝕎 = {0, 1, 2, 3, 4, …}</div>
+    <div class="box"><strong>Integers</strong><br>ℤ = {…, −2, −1, 0, 1, 2, …}</div>
+    <div class="box"><strong>Rational</strong> – terminating & repeating decimals</div>
+    <div class="box"><strong>Irrational</strong> – non-terminating & non-repeating</div>
+    <div class="box"><strong>Real Numbers</strong> – all rational + irrational</div>
+  </div>
+
+  <!-- LESSON 4 -->
+  <div class="lesson" id="lesson4">
+    <button class="back-btn" onclick="goHome()">← Back to Home</button>
+    <div class="lesson-head">
+      <h2>Set-Builder Notation</h2>
+      <div class="tag">Topic 4</div>
+    </div>
+    <h3>Form</h3>
+    <p style="text-align:center; font-size:1.2rem; margin:1rem 0;">
+      <span class="math">{ x | P(x) }</span> &nbsp; or &nbsp; <span class="math">{ x : P(x) }</span>
+    </p>
+    <p>“The set of all x such that P(x) is true.”</p>
+    <h3>Examples</h3>
+    <div class="box">
+      Natural numbers &gt; 10 and &lt; 15<br>
+      <span class="math">{ x ∈ ℕ | 10 &lt; x &lt; 15 }</span> = {11, 12, 13, 14}
+    </div>
+    <div class="box">
+      Counting numbers &gt; 5 and ≤ 10<br>
+      <span class="math">{ x ∈ ℕ | 5 &lt; x ≤ 10 }</span> = {6, 7, 8, 9, 10}
+    </div>
+    <div class="note">Very useful for large or infinite sets.</div>
+  </div>
+
+  <!-- LESSON 5 -->
+  <div class="lesson" id="lesson5">
+    <button class="back-btn" onclick="goHome()">← Back to Home</button>
+    <div class="lesson-head">
+      <h2>Different Types of Sets</h2>
+      <div class="tag">Topic 5</div>
+    </div>
+    <div class="box"><strong>Well-Defined</strong> – elements can be clearly identified</div>
+    <div class="box"><strong>Empty / Null</strong> – no elements (∅)</div>
+    <div class="box"><strong>Finite</strong> – limited elements (e.g. {1,2,3,4})</div>
+    <div class="box"><strong>Infinite</strong> – unending (e.g. whole numbers)</div>
+    <div class="box"><strong>Equal</strong> – exactly the same elements</div>
+    <div class="box"><strong>Equivalent</strong> – same number of elements</div>
+    <div class="box"><strong>Universal (U)</strong> – all elements being considered</div>
+    <div class="box"><strong>Complement (A′)</strong> – elements in U but not in A</div>
+    <div class="box"><strong>Proper Subset (⊂)</strong> – A is inside B and A ≠ B</div>
+    <div class="box"><strong>Improper Subset (⊆)</strong> – A can equal B</div>
+  </div>
+
+  <!-- LESSON 6 -->
+  <div class="lesson" id="lesson6">
+    <button class="back-btn" onclick="goHome()">← Back to Home</button>
+    <div class="lesson-head">
+      <h2>Set Operations</h2>
+      <div class="tag">Topic 6</div>
+    </div>
+    <h3>Intersection (A ∩ B)</h3>
+    <p>Common elements only.</p>
+    <div class="box">A = {1,2,3,4}<br>B = {2,3,5,6,7}<br>A ∩ B = {2, 3}</div>
+    <h3>Union (A ∪ B)</h3>
+    <p>All elements from both sets.</p>
+    <div class="box">A = {1,2,3,4}<br>B = {3,4,5}<br>A ∪ B = {1, 2, 3, 4, 5}</div>
+    <h3>Disjoint</h3>
+    <p>No common elements (A ∩ B = ∅).</p>
+  </div>
+
+  <!-- LESSON 7 -->
+  <div class="lesson" id="lesson7">
+    <button class="back-btn" onclick="goHome()">← Back to Home</button>
+    <div class="lesson-head">
+      <h2>Venn Diagram</h2>
+      <div class="tag">Topic 7</div>
+    </div>
+    <h3>What is it?</h3>
+    <p>A diagram that uses circles inside a rectangle (universal set) to show relationships between sets.</p>
+    <h3>Key Regions</h3>
+    <ul>
+      <li><strong>A ∩ B</strong> – overlapping part only</li>
+      <li><strong>A ∪ B</strong> – everything in A or B</li>
+      <li><strong>A′</strong> – outside of A</li>
+      <li><strong>B ∪ C</strong> – everything in B or C</li>
+      <li><strong>B′ ∩ C</strong> – part of C outside B</li>
+    </ul>
+    <div class="note">Draw the rectangle (U) first, then the circles.</div>
+  </div>
+
+  <!-- LESSON 8 -->
+  <div class="lesson" id="lesson8">
+    <button class="back-btn" onclick="goHome()">← Back to Home</button>
+    <div class="lesson-head">
+      <h2>Reasoning</h2>
+      <div class="tag">Topic 8</div>
+    </div>
+    <h3>Deductive Reasoning</h3>
+    <p><strong>General → Specific</strong> (conclusion is certain if premises are true)</p>
+    <div class="box">
+      All humans are mortal.<br>
+      Alexis is a human.<br>
+      ∴ Alexis is mortal.
+    </div>
+    <div class="box">
+      All even numbers are divisible by 2.<br>
+      22 is even.<br>
+      ∴ 22 is divisible by 2.
+    </div>
+    <h3>Inductive Reasoning</h3>
+    <p><strong>Specific → General</strong> (conclusion is probable)</p>
+    <div class="box">
+      2+1=3, 4+1=5, 6+1=7 (all odd)<br>
+      Conclusion: Even number + 1 is always odd.
+    </div>
+    <h3>Quick Comparison</h3>
+    <table>
+      <thead><tr><th>Deductive</th><th>Inductive</th></tr></thead>
+      <tbody>
+        <tr><td>General → Specific</td><td>Specific → General</td></tr>
+        <tr><td>Certain conclusion</td><td>Probable conclusion</td></tr>
+        <tr><td>Uses rules</td><td>Uses patterns</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function openLesson(n) {
+      document.getElementById('home').style.display = 'none';
+      document.querySelectorAll('.lesson').forEach(el => el.classList.remove('active'));
+      const lesson = document.getElementById('lesson' + n);
+      lesson.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goHome() {
+      document.querySelectorAll('.lesson').forEach(el => el.classList.remove('active'));
+      document.getElementById('home').style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
